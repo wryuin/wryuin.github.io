@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор ключей</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Генератор ключей</h1>
+        
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="generator">Генератор</button>
+                <button class="tab-button" data-tab="github">GitHub</button>
+                <button class="tab-button" data-tab="history">Ключи</button>
+            </div>
+            
+            <div class="tab-content active" id="generator-tab">
+                <div class="form-group">
+                    <label for="key-type">Тип ключа:</label>
+                    <select id="key-type">
+                        <option value="random">Случайный</option>
+                        <option value="uuid">UUID</option>
+                        <option value="alphanumeric">Буквенно-цифровой</option>
+                        <option value="hex">Шестнадцатеричный</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="key-length">Длина ключа:</label>
+                    <input type="number" id="key-length" value="16" min="4" max="64">
+                </div>
+                
+                <div class="form-group">
+                    <label for="minecraft-command">Команда Minecraft:</label>
+                    <input type="text" id="minecraft-command" placeholder="Например: /give @p diamond 64">
+                    <small style="display: block; margin-top: 5px; color: #777;">
+                        Команда, которая будет выполнена на сервере Minecraft при использовании ключа.
+                    </small>
+                </div>
+                
+                <button id="generate-btn">Сгенерировать ключ</button>
+                
+                <div class="result" id="result"></div>
+                <div id="command-display" class="hidden" style="margin-top: 0.5rem; padding: 0.5rem; background-color: #f5f5f5; border-radius: 5px;">
+                    <div><strong>Команда Minecraft:</strong></div>
+                    <code id="command-code" style="display: block; margin-top: 0.3rem; word-break: break-all;"></code>
+                </div>
+                
+                <div class="button-group">
+                    <button class="copy-btn" id="copy-btn">Копировать</button>
+                    <button class="save-btn" id="save-btn">Сохранить в GitHub</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="github-tab">
+                <div id="github-login" class="github-auth">
+                    <div class="form-group">
+                        <label for="repo-owner">Имя пользователя GitHub:</label>
+                        <input type="text" id="repo-owner" placeholder="username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="repo-name">Имя репозитория:</label>
+                        <input type="text" id="repo-name" placeholder="repository">
+                        <small style="display: block; margin-top: 5px; color: #777;">
+                            Репозиторий должен существовать. Если его нет, сначала создайте репозиторий на GitHub.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="token">Токен доступа GitHub:</label>
+                        <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx">
+                        <small style="display: block; margin-top: 5px; color: #777;">
+                            Требуется личный токен доступа с правами на репозиторий.
+                            <a href="https://github.com/settings/tokens" target="_blank">Создать токен</a>
+                            <br>Необходимые разрешения: <code>repo</code> (для приватного репозитория)
+                            <br>Для публичного репозитория: <code>public_repo</code>
+                            <br>Срок действия токена: установите подходящий срок (можно выбрать "No expiration" для постоянного токена)
+                            <br><strong>Внимание:</strong> Токен имеет доступ к вашему репозиторию. Не передавайте его третьим лицам.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-path">Путь к YAML файлу:</label>
+                        <input type="text" id="file-path" placeholder="keys.yml" value="keys.yml">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="branch-name">Название ветки:</label>
+                        <input type="text" id="branch-name" placeholder="main" value="main">
+                    </div>
+                    
+                    <button id="save-github-settings">Сохранить настройки</button>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background-color: #f8f8f8; border-radius: 5px; border-left: 4px solid #ff9800;">
+                        <h3 style="margin-bottom: 10px; color: #333;">Частые проблемы и решения:</h3>
+                        <ul style="padding-left: 20px; color: #555; font-size: 0.9rem;">
+                            <li><strong>Ошибка 401</strong> - Неверный токен или недостаточно прав. Убедитесь, что токен правильный и имеет разрешение <code>repo</code> для приватного репозитория.</li>
+                            <li><strong>Ошибка 404</strong> - Репозиторий или файл не найден. Проверьте правильность имени пользователя и репозитория.</li>
+                            <li><strong>Ошибка 403</strong> - Превышены лимиты GitHub API или нет доступа. Подождите или проверьте настройки репозитория.</li>
+                            <li><strong>Ключи не отображаются</strong> - После сохранения ключа может потребоваться некоторое время для обновления данных в GitHub. Попробуйте обновить список через несколько секунд.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div id="github-connected" class="hidden">
+                    <div style="padding: 1rem; background-color: #e7f7e7; border-radius: 5px; margin-bottom: 1rem;">
+                        <strong>Подключено к GitHub!</strong>
+                        <p style="margin-top: 0.5rem;">
+                            Репозиторий: <span id="connected-repo"></span><br>
+                            Файл: <span id="connected-file"></span><br>
+                            Ветка: <span id="connected-branch"></span>
+                        </p>
+                    </div>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #555;">
+                        Теперь вы можете генерировать и сохранять ключи в ваш приватный репозиторий.
+                        Сгенерированные ключи будут доступны во вкладке "Ключи".
+                    </p>
+                    <button id="logout-github">Выйти</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="history-tab">
+                <h2>Сохраненные ключи</h2>
+                <button id="refresh-keys" style="margin-top: 10px;">Обновить список</button>
+                <div id="loading-keys" class="loading hidden"></div>
+                <div id="keys-list">
+                    <p id="no-keys-message">Нет сохраненных ключей или не настроено подключение к GitHub.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Скопировано в буфер обмена!</div>
+    <script src="main.js"></script>
+</body>
+</html>
