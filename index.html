@@ -3,139 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор ключей</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <title>GDRS Сервер - Демон Листы</title>
+    <meta name="description" content="Официальный сайт GDRS сервера с демон-листами. Скачивайте игру, проходите сложные уровни и присоединяйтесь к сообществу!">
+    <meta name="keywords" content="GDRS, Geometry Dash, демон-листы, GDPS, экстрим демоны">
+    
+    <!-- Метатеги для соцсетей -->
+    <meta property="og:title" content="GDRS Сервер - Демон Листы">
+    <meta property="og:description" content="Официальный сайт GDRS сервера с демон-листами. Скачивайте игру, проходите сложные уровни и присоединяйтесь к сообществу!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gdrsserver.com/">
+    <meta property="og:image" content="https://i.imgur.com/jU0tUdZ.png">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Генератор ключей</h1>
-        
-        <div class="tab-container">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="generator">Генератор</button>
-                <button class="tab-button" data-tab="github">GitHub</button>
-                <button class="tab-button" data-tab="history">Ключи</button>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>GDRS Server</h1>
+                <span class="subtitle">Демон Листы</span>
             </div>
-            
-            <div class="tab-content active" id="generator-tab">
-                <div class="form-group">
-                    <label for="key-type">Тип ключа:</label>
-                    <select id="key-type">
-                        <option value="random">Случайный</option>
-                        <option value="uuid">UUID</option>
-                        <option value="alphanumeric">Буквенно-цифровой</option>
-                        <option value="hex">Шестнадцатеричный</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="key-length">Длина ключа:</label>
-                    <input type="number" id="key-length" value="16" min="4" max="64">
-                </div>
-                
-                <div class="form-group">
-                    <label for="minecraft-command">Команда Minecraft:</label>
-                    <input type="text" id="minecraft-command" placeholder="Например: /give @p diamond 64">
-                    <small style="display: block; margin-top: 5px; color: #777;">
-                        Команда, которая будет выполнена на сервере Minecraft при использовании ключа.
-                    </small>
-                </div>
-                
-                <button id="generate-btn">Сгенерировать ключ</button>
-                
-                <div class="result" id="result"></div>
-                <div id="command-display" class="hidden" style="margin-top: 0.5rem; padding: 0.5rem; background-color: #f5f5f5; border-radius: 5px;">
-                    <div><strong>Команда Minecraft:</strong></div>
-                    <code id="command-code" style="display: block; margin-top: 0.3rem; word-break: break-all;"></code>
-                </div>
-                
-                <div class="button-group">
-                    <button class="copy-btn" id="copy-btn">Копировать</button>
-                    <button class="save-btn" id="save-btn">Сохранить в GitHub</button>
-                </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#demon-lists">Демон Листы</a></li>
+                    <li><a href="#download">Скачать</a></li>
+                    <li><a href="#about">О сервере</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
-            
-            <div class="tab-content" id="github-tab">
-                <div id="github-login" class="github-auth">
-                    <div class="form-group">
-                        <label for="repo-owner">Имя пользователя GitHub:</label>
-                        <input type="text" id="repo-owner" placeholder="username">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="repo-name">Имя репозитория:</label>
-                        <input type="text" id="repo-name" placeholder="repository">
-                        <small style="display: block; margin-top: 5px; color: #777;">
-                            Репозиторий должен существовать. Если его нет, сначала создайте репозиторий на GitHub.
-                        </small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="token">Токен доступа GitHub:</label>
-                        <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx">
-                        <small style="display: block; margin-top: 5px; color: #777;">
-                            Требуется личный токен доступа с правами на репозиторий.
-                            <a href="https://github.com/settings/tokens" target="_blank">Создать токен</a>
-                            <br>Необходимые разрешения: <code>repo</code> (для приватного репозитория)
-                            <br>Для публичного репозитория: <code>public_repo</code>
-                            <br>Срок действия токена: установите подходящий срок (можно выбрать "No expiration" для постоянного токена)
-                            <br><strong>Внимание:</strong> Токен имеет доступ к вашему репозиторию. Не передавайте его третьим лицам.
-                        </small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="file-path">Путь к YAML файлу:</label>
-                        <input type="text" id="file-path" placeholder="keys.yml" value="keys.yml">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="branch-name">Название ветки:</label>
-                        <input type="text" id="branch-name" placeholder="main" value="main">
-                    </div>
-                    
-                    <button id="save-github-settings">Сохранить настройки</button>
-                    
-                    <div style="margin-top: 20px; padding: 15px; background-color: #f8f8f8; border-radius: 5px; border-left: 4px solid #ff9800;">
-                        <h3 style="margin-bottom: 10px; color: #333;">Частые проблемы и решения:</h3>
-                        <ul style="padding-left: 20px; color: #555; font-size: 0.9rem;">
-                            <li><strong>Ошибка 401</strong> - Неверный токен или недостаточно прав. Убедитесь, что токен правильный и имеет разрешение <code>repo</code> для приватного репозитория.</li>
-                            <li><strong>Ошибка 404</strong> - Репозиторий или файл не найден. Проверьте правильность имени пользователя и репозитория.</li>
-                            <li><strong>Ошибка 403</strong> - Превышены лимиты GitHub API или нет доступа. Подождите или проверьте настройки репозитория.</li>
-                            <li><strong>Ключи не отображаются</strong> - После сохранения ключа может потребоваться некоторое время для обновления данных в GitHub. Попробуйте обновить список через несколько секунд.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div id="github-connected" class="hidden">
-                    <div style="padding: 1rem; background-color: #e7f7e7; border-radius: 5px; margin-bottom: 1rem;">
-                        <strong>Подключено к GitHub!</strong>
-                        <p style="margin-top: 0.5rem;">
-                            Репозиторий: <span id="connected-repo"></span><br>
-                            Файл: <span id="connected-file"></span><br>
-                            Ветка: <span id="connected-branch"></span>
-                        </p>
-                    </div>
-                    <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #555;">
-                        Теперь вы можете генерировать и сохранять ключи в ваш приватный репозиторий.
-                        Сгенерированные ключи будут доступны во вкладке "Ключи".
-                    </p>
-                    <button id="logout-github">Выйти</button>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="history-tab">
-                <h2>Сохраненные ключи</h2>
-                <button id="refresh-keys" style="margin-top: 10px;">Обновить список</button>
-                <div id="loading-keys" class="loading hidden"></div>
-                <div id="keys-list">
-                    <p id="no-keys-message">Нет сохраненных ключей или не настроено подключение к GitHub.</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Добро пожаловать на наш GDRS сервер</h2>
+                <p>Испытай свои навыки на наших уникальных демон-уровнях!</p>
+                <div class="hero-buttons">
+                    <a href="#demon-lists" class="btn btn-primary">Демон листы</a>
+                    <a href="#download" class="btn btn-secondary">Скачать сервер</a>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="toast" id="toast">Скопировано в буфер обмена!</div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature-box">
+                <i class="fas fa-trophy"></i>
+                <h3>Топ демоны</h3>
+                <p>Проверь свои навыки на самых сложных уровнях</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-users"></i>
+                <h3>Сообщество</h3>
+                <p>Присоединяйся к активному сообществу игроков</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-gamepad"></i>
+                <h3>Уникальный контент</h3>
+                <p>Эксклюзивные уровни только на нашем сервере</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="demon-lists" class="demon-lists">
+        <div class="container">
+            <h2 class="section-title">Демон Листы</h2>
+            <div class="difficulty-filter">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="extreme">Extreme Demons</button>
+                <button class="filter-btn" data-filter="insane">Insane Demons</button>
+                <button class="filter-btn" data-filter="hard">Hard Demons</button>
+                <button class="filter-btn" data-filter="medium">Medium Demons</button>
+                <button class="filter-btn" data-filter="easy">Easy Demons</button>
+            </div>
+
+            <div class="demons-container">
+                <!-- Extreme Demons -->
+                <div class="demon-item extreme">
+                    <div class="demon-number">#1</div>
+                    <div class="demon-info">
+                        <div class="demon-name">Bloodbath X</div>
+                        <div class="demon-creator">by Creator1</div>
+                    </div>
+                    <div class="demon-difficulty extreme">Extreme</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="demon-item extreme">
+                    <div class="demon-number">#2</div>
+                    <div class="demon-info">
+                        <div class="demon-name">Sonic Wave Neo</div>
+                        <div class="demon-creator">by Creator2</div>
+                    </div>
+                    <div class="demon-difficulty extreme">Extreme</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Insane Demons -->
+                <div class="demon-item insane">
+                    <div class="demon-number">#3</div>
+                    <div class="demon-info">
+                        <div class="demon-name">Acropolis Plus</div>
+                        <div class="demon-creator">by Creator3</div>
+                    </div>
+                    <div class="demon-difficulty insane">Insane</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Hard Demons -->
+                <div class="demon-item hard">
+                    <div class="demon-number">#4</div>
+                    <div class="demon-info">
+                        <div class="demon-name">Nine Circles Remake</div>
+                        <div class="demon-creator">by Creator4</div>
+                    </div>
+                    <div class="demon-difficulty hard">Hard</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Medium Demons -->
+                <div class="demon-item medium">
+                    <div class="demon-number">#5</div>
+                    <div class="demon-info">
+                        <div class="demon-name">B Remastered</div>
+                        <div class="demon-creator">by Creator5</div>
+                    </div>
+                    <div class="demon-difficulty medium">Medium</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Easy Demons -->
+                <div class="demon-item easy">
+                    <div class="demon-number">#6</div>
+                    <div class="demon-info">
+                        <div class="demon-name">The Nightmare X</div>
+                        <div class="demon-creator">by Creator6</div>
+                    </div>
+                    <div class="demon-difficulty easy">Easy</div>
+                    <div class="demon-video">
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download">
+        <div class="container">
+            <h2 class="section-title">Скачать GDRS сервер</h2>
+            <p class="section-description">Присоединяйся к нашему серверу прямо сейчас и покори все демоны!</p>
+            
+            <div class="download-options">
+                <div class="download-card">
+                    <div class="card-icon">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3>Android</h3>
+                    <p>Версия 2.2</p>
+                    <a href="files/GDRS.apk" download class="btn btn-primary">Скачать APK</a>
+                    <div class="download-info">172 МБ</div>
+                </div>
+                
+                <div class="download-card">
+                    <div class="card-icon">
+                        <i class="fab fa-windows"></i>
+                    </div>
+                    <h3>Windows</h3>
+                    <p>Версия 2.2</p>
+                    <a href="#" class="btn btn-primary">Скачать EXE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">О сервере</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Наш GDRS сервер - это сообщество энтузиастов Geometry Dash, создающих и проходящих самые сложные и интересные уровни.</p>
+                    <p>Мы предлагаем уникальную коллекцию демон-уровней, отсортированных по сложности, чтобы каждый игрок мог найти что-то по своему уровню.</p>
+                    <p>Присоединяйтесь к нам в Discord для общения с другими игроками и следите за обновлениями!</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i> Discord</a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Игроков</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Уровней</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Демонов</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>GDRS Server</h3>
+                    <p>Лучший GDRS сервер с демон-листами</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#demon-lists">Демон Листы</a></li>
+                        <li><a href="#download">Скачать</a></li>
+                        <li><a href="#about">О сервере</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Социальные сети</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GDRS Server. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="main.js"></script>
 </body>
 </html>
