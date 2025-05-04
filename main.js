@@ -195,3 +195,75 @@ window.addEventListener('load', () => {
     // Добавляем классы для CSS анимаций
     document.body.classList.add('loaded');
 });
+
+// Модальное окно с инструкцией
+const instructionsBtn = document.getElementById('instructions-btn');
+const instructionsModal = document.getElementById('instructions-modal');
+const closeModal = document.querySelector('.close-modal');
+
+// Открытие модального окна
+instructionsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    instructionsModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+});
+
+// Закрытие модального окна при клике на крестик
+closeModal.addEventListener('click', () => {
+    instructionsModal.classList.remove('active');
+    document.body.style.overflow = ''; // Возвращаем прокрутку страницы
+});
+
+// Закрытие модального окна при клике вне содержимого
+instructionsModal.addEventListener('click', (e) => {
+    if (e.target === instructionsModal) {
+        instructionsModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Закрытие модального окна при нажатии ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && instructionsModal.classList.contains('active')) {
+        instructionsModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Копирование адреса сервера
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-btn');
+    const serverUrl = document.getElementById('server-url');
+    
+    if (copyBtn && serverUrl) {
+        copyBtn.addEventListener('click', () => {
+            // Копируем текст
+            navigator.clipboard.writeText(serverUrl.textContent.trim())
+                .then(() => {
+                    // Успешное копирование
+                    copyBtn.classList.add('copied');
+                    
+                    // Удаляем класс через 2 секунды
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Ошибка при копировании: ', err);
+                    
+                    // Альтернативный метод копирования (для старых браузеров)
+                    const range = document.createRange();
+                    range.selectNode(serverUrl);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+        });
+    }
+});

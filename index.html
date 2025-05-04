@@ -7,7 +7,6 @@
     <meta name="description" content="Официальный сайт GDRS сервера с демон-листами. Скачивайте игру, проходите сложные уровни и присоединяйтесь к сообществу!">
     <meta name="keywords" content="GDRS, Geometry Dash, демон-листы, GDPS, экстрим демоны">
     
-    <!-- Метатеги для соцсетей -->
     <meta property="og:title" content="GDRS Сервер - Демон Листы">
     <meta property="og:description" content="Официальный сайт GDRS сервера с демон-листами. Скачивайте игру, проходите сложные уровни и присоединяйтесь к сообществу!">
     <meta property="og:type" content="website">
@@ -36,6 +35,16 @@
                     <li><a href="#about">О сервере</a></li>
                 </ul>
             </nav>
+            <div class="auth-nav-buttons">
+                <a href="https://eizgdrs.ps.fhgdps.com/dashboard/login/register.php" class="auth-nav-btn login-nav-btn" id="login-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Войти</span>
+                </a>
+                <a href="https://eizgdrs.ps.fhgdps.com/dashboard/login/register.php" class="auth-nav-btn register-nav-btn" id="register-link">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Регистрация</span>
+                </a>
+            </div>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
@@ -49,6 +58,7 @@
                 <p>Испытай свои навыки на наших уникальных демон-уровнях!</p>
                 <div class="hero-buttons">
                     <a href="#demon-lists" class="btn btn-primary">Демон листы</a>
+                    <a href="https://eizgdrs.ps.fhgdps.com/dashboard/login/register.php" class="btn btn-primary" id="profile-btn">Мой профиль</a>
                     <a href="#download" class="btn btn-secondary">Скачать сервер</a>
                 </div>
             </div>
@@ -147,6 +157,8 @@
                         <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
 
     <section id="download" class="download">
@@ -174,6 +186,16 @@
                     <a href="https://mega.nz/file/xGsl1LRQ#GYF2zCWC3L1V5-te38hkaGcJ67sZVVepIQTtFqce-yo" class="btn btn-primary">Скачать EXE</a>
                     <div class="download-info">270 МБ</div>
                 </div>
+                
+                <div class="download-card">
+                    <div class="card-icon">
+                        <img src="images/geode.png" alt="Geode" class="geode-img">
+                    </div>
+                    <h3>Geode</h3>
+                    <p>Версия 2.2</p>
+                    <a href="#" class="btn btn-primary" id="instructions-btn">Инструкция</a>
+                    <div class="download-info">Моды для игры</div>
+                </div>
             </div>
         </div>
     </section>
@@ -185,11 +207,11 @@
                 <div class="about-text">
                     <p>Наш GDRS сервер - это сообщество энтузиастов Geometry Dash, создающих и проходящих самые сложные и интересные уровни.</p>
                     <p>Мы предлагаем уникальную коллекцию демон-уровней, отсортированных по сложности, чтобы каждый игрок мог найти что-то по своему уровню.</p>
-                    <p>Присоединяйтесь к нам в Discord для общения с другими игроками и следите за обновлениями!</p>
+                    <p>Присоединяйтесь к нам в Telegram для общения с другими игроками и следите за обновлениями!</p>
                     
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i> Discord</a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="https://t.me/gdrs0" class="social-link"><i class="fab fa-telegram"></i> Telegram</a>
+                        <a href="https://tiktok.com/@gdrs_tt" class="social-link"><i class="fab fa-tiktok"></i> TikTok</a>
                     </div>
                 </div>
                 <div class="about-stats">
@@ -229,9 +251,8 @@
                 <div class="footer-social">
                     <h4>Социальные сети</h4>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://t.me/gdrs0"><i class="fab fa-telegram"></i></a>
+                        <a href="https://tiktok.com/@gdrs_tt"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -241,6 +262,52 @@
         </div>
     </footer>
 
+    <div id="instructions-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Инструкция по установке Geode на приватный сервер</h3>
+            <div class="modal-body">
+                <p>Для установки модлоадера Geode и использования модов выполните следующие шаги:</p>
+                <ol class="instruction-steps">
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-download"></i></div>
+                        <div class="step-content">Установите Geode для Geometry Dash</div>
+                    </li>
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="step-content">Зайдите в игру</div>
+                    </li>
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <div class="step-content">Скачайте мод "GDPS Switcher"</div>
+                    </li>
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+                        <div class="step-content">
+                            Введите в поле "Server Address" адрес нашего сервера: 
+                            <div class="server-address">
+                                <span id="server-url">https://eizgdrs.ps.fhgdps.com/</span>
+                                <button id="copy-btn" class="copy-btn" title="Копировать адрес">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="step-content">Выберите сервер который вы добавили</div>
+                    </li>
+                    <li class="instruction-step">
+                        <div class="step-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="step-content">Перезапустите игру и наслаждайтесь!</div>
+                    </li>
+                </ol>
+                <p class="support-note"><i class="fas fa-info-circle"></i> При возникновении проблем обратитесь в наш <a href="#" class="telegram-link">Telegram сервер</a> для получения помощи.</p>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
+    <script src="o.js"></script>
 </body>
 </html>
