@@ -1,0 +1,865 @@
+/* Основные стили */
+:root {
+    --primary-color: #3a51ff;
+    --secondary-color: #ff3a6f;
+    --background-color: #0e1016;
+    --card-bg-color: #14171f;
+    --text-color: #fff;
+    --text-muted: #8a8a8a;
+    --extreme-color: #ff0000;
+    --insane-color: #ff6600;
+    --hard-color: #ffaa00;
+    --medium-color: #ffff00;
+    --easy-color: #00ff00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(58, 81, 255, 0.4);
+}
+
+.btn-primary:hover {
+    background: #4a60ff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(58, 81, 255, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(255, 58, 111, 0.2);
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 58, 111, 0.4);
+}
+
+/* Шапка */
+header {
+    background-color: rgba(14, 16, 22, 0.95);
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: var(--primary-color);
+}
+
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after, nav ul li a.active::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Секция героя */
+.hero {
+    padding: 180px 0 100px;
+    background: linear-gradient(to bottom, rgba(14, 16, 22, 0.9), rgba(14, 16, 22, 1)), url('https://i.imgur.com/jU0tUdZ.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #fff, #a9b3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Секция возможностей */
+.features {
+    padding: 80px 0;
+}
+
+.features .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-box {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-box i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.feature-box h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.feature-box p {
+    color: var(--text-muted);
+}
+
+/* Заголовки секций */
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-description {
+    text-align: center;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: -30px auto 50px;
+    font-size: 18px;
+}
+
+/* Демон листы */
+.demon-lists {
+    padding: 100px 0;
+    background-color: rgba(20, 23, 31, 0.7);
+}
+
+.difficulty-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background-color: var(--card-bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.demons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.demon-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.demon-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.demon-number {
+    font-size: 24px;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+}
+
+.demon-info {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.demon-name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.demon-creator {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.demon-difficulty {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    min-width: 100px;
+    text-align: center;
+}
+
+.demon-difficulty.extreme {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: var(--extreme-color);
+    border: 1px solid var(--extreme-color);
+}
+
+.demon-difficulty.insane {
+    background-color: rgba(255, 102, 0, 0.2);
+    color: var(--insane-color);
+    border: 1px solid var(--insane-color);
+}
+
+.demon-difficulty.hard {
+    background-color: rgba(255, 170, 0, 0.2);
+    color: var(--hard-color);
+    border: 1px solid var(--hard-color);
+}
+
+.demon-difficulty.medium {
+    background-color: rgba(255, 255, 0, 0.2);
+    color: var(--medium-color);
+    border: 1px solid var(--medium-color);
+}
+
+.demon-difficulty.easy {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: var(--easy-color);
+    border: 1px solid var(--easy-color);
+}
+
+.demon-video a {
+    font-size: 20px;
+    color: red;
+    transition: all 0.3s ease;
+}
+
+.demon-video a:hover {
+    color: #ff3a3a;
+    transform: scale(1.2);
+}
+
+/* Секция загрузки */
+.download {
+    padding: 100px 0;
+    background: linear-gradient(to bottom, rgba(14, 16, 22, 0.9), rgba(14, 16, 22, 1)), url('https://i.imgur.com/pN9PeEG.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.download-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.download-card {
+    background-color: var(--card-bg-color);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.download-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.download-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.download-card p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.download-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* О сервере */
+.about {
+    padding: 100px 0;
+}
+
+.about-content {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: var(--text-muted);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--card-bg-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-link:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.about-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.stat-item {
+    background-color: var(--card-bg-color);
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 160px;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+}
+
+.stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Подвал */
+footer {
+    background-color: #0a0c12;
+    padding-top: 70px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.footer-logo {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.footer-logo p {
+    color: var(--text-muted);
+}
+
+.footer-links, .footer-social {
+    min-width: 160px;
+}
+
+.footer-links h4, .footer-social h4 {
+    margin-bottom: 20px;
+    font-size: a8px;
+    color: #fff;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg-color);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .hero-content h2 {
+        font-size: 36px;
+    }
+    
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .about-text {
+        order: 2;
+    }
+    
+    .about-stats {
+        order: 1;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 80px);
+        background-color: var(--card-bg-color);
+        transition: all 0.4s ease;
+        padding: 20px;
+        z-index: 999;
+    }
+    
+    nav.active {
+        left: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        margin: 15px 0;
+    }
+    
+    .hero-content h2 {
+        font-size: 30px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-title {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding: 150px 0 80px;
+    }
+    
+    .hero-content h2 {
+        font-size: 24px;
+    }
+    
+    .demon-item {
+        flex-wrap: wrap;
+        padding: 15px;
+    }
+    
+    .demon-number {
+        min-width: 30px;
+        font-size: 20px;
+    }
+    
+    .demon-info {
+        padding: 0 10px;
+        flex: 0 0 calc(100% - 140px);
+    }
+    
+    .demon-difficulty {
+        margin: 10px 0 0 50px;
+    }
+    
+    .feature-box {
+        padding: 20px;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glowText {
+    0% {
+        text-shadow: 0 0 5px rgba(58, 81, 255, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(58, 81, 255, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(58, 81, 255, 0.5);
+    }
+}
+
+@keyframes downloadPulse {
+    0% {
+        background-color: var(--primary-color);
+        box-shadow: 0 5px 15px rgba(58, 81, 255, 0.4);
+    }
+    50% {
+        background-color: #22c55e;
+        box-shadow: 0 5px 25px rgba(34, 197, 94, 0.7);
+    }
+    100% {
+        background-color: var(--primary-color);
+        box-shadow: 0 5px 15px rgba(58, 81, 255, 0.4);
+    }
+}
+
+/* Применение анимаций */
+.hero-content h2 {
+    animation: slideInLeft 1s ease forwards;
+}
+
+.hero-content p {
+    animation: fadeIn 1s ease 0.3s forwards;
+    opacity: 0;
+}
+
+.hero-buttons {
+    animation: fadeIn 1s ease 0.6s forwards;
+    opacity: 0;
+}
+
+.feature-box, .demon-item, .download-card, .stat-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.feature-box.fade-in, .demon-item.fade-in, .download-card.fade-in, .stat-item.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-toggle.active i:before {
+    content: "\f00d";
+}
+
+/* Загрузка страницы */
+body.loaded {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Стили для активного меню */
+nav ul li a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Эффект свечения для экстремальных демонов */
+.demon-item.extreme:hover .demon-difficulty {
+    animation: glowText 1.5s infinite;
+}
+
+/* Плавные переходы между страницами */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    z-index: 9999;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.page-transition.active {
+    transform: translateY(0);
+}
+
+/* Анимация кнопки скачивания */
+.btn.downloading {
+    animation: downloadPulse 1.5s infinite;
+    background-color: #22c55e;
+    border-color: #22c55e;
+    position: relative;
+}
+
+.btn.downloading:after {
+    content: "...";
+    position: absolute;
+    right: 10px;
+    animation: downloadDots 1.5s infinite;
+}
+
+@keyframes downloadDots {
+    0% { content: "."; }
+    33% { content: ".."; }
+    66% { content: "..."; }
+    100% { content: "."; }
+}
