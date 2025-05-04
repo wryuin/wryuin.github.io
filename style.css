@@ -413,6 +413,42 @@ nav ul li a:hover::after, nav ul li a.active::after {
     color: white;
 }
 
+/* Стили для кнопки сортировки */
+.sort-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.sort-btn {
+    padding: 8px 20px;
+    background-color: var(--card-bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 98, 255, 0.3);
+}
+
+.sort-btn i {
+    transition: transform 0.3s ease;
+}
+
+.sort-btn.desc i {
+    transform: rotate(180deg);
+}
+
 .demons-container {
     display: flex;
     flex-direction: column;
@@ -1890,5 +1926,26 @@ nav ul li a.active {
 @media (max-width: 768px) {
     .auth-nav-btn span {
         display: none;
+    }
+}
+
+/* Анимация сортировки */
+.demon-item.sorted {
+    animation: sortAnimation 0.5s ease;
+}
+
+@keyframes sortAnimation {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+        background-color: rgba(74, 98, 255, 0.1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        background-color: var(--card-bg-color);
     }
 }

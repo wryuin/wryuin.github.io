@@ -185,6 +185,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Сортировка демонов по сложности
+    const sortBtn = document.getElementById('sort-difficulty-btn');
+    if (sortBtn) {
+        let isAscending = false; // По умолчанию сортировка по убыванию (от экстрим до изи)
+        
+        sortBtn.addEventListener('click', () => {
+            // Меняем направление сортировки при каждом клике
+            isAscending = !isAscending;
+            sortBtn.classList.toggle('desc', !isAscending);
+            
+            // Вызываем функцию сортировки
+            sortDemonsByDifficulty(isAscending);
+            
+            // Добавляем анимацию для наглядности изменений
+            const demonItems = document.querySelectorAll('.demon-item');
+            demonItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('sorted');
+                    
+                    // Удаляем класс через некоторое время для возможности повторной анимации
+                    setTimeout(() => {
+                        item.classList.remove('sorted');
+                    }, 500);
+                }, index * 50);
+            });
+        });
+    }
 });
 
 // Запускаем функции при загрузке страницы
@@ -194,7 +222,54 @@ window.addEventListener('load', () => {
     
     // Добавляем классы для CSS анимаций
     document.body.classList.add('loaded');
+    
+    // Автоматическая сортировка демонов при загрузке страницы
+    sortDemonsByDifficulty();
 });
+
+// Функция сортировки демонов по сложности
+function sortDemonsByDifficulty(ascending = false) {
+    const demonsContainer = document.querySelector('.demons-container');
+    const demonItems = Array.from(document.querySelectorAll('.demon-item'));
+    
+    if (demonItems.length === 0 || !demonsContainer) return;
+    
+    // Порядок сложности от высшего к низшему
+    const difficultyOrder = ['extreme', 'insane', 'hard', 'medium', 'easy'];
+    
+    // Функция для получения уровня сложности
+    const getDifficultyLevel = (item) => {
+        for (const className of item.classList) {
+            if (difficultyOrder.includes(className)) {
+                return difficultyOrder.indexOf(className);
+            }
+        }
+        return -1;
+    };
+    
+    // Сортируем элементы
+    demonItems.sort((a, b) => {
+        const diffA = getDifficultyLevel(a);
+        const diffB = getDifficultyLevel(b);
+        
+        return ascending ? diffA - diffB : diffB - diffA;
+    });
+    
+    // Обновляем номера демонов
+    demonItems.forEach((item, index) => {
+        item.querySelector('.demon-number').textContent = `#${index + 1}`;
+    });
+    
+    // Удаляем все элементы из контейнера
+    while (demonsContainer.firstChild) {
+        demonsContainer.removeChild(demonsContainer.firstChild);
+    }
+    
+    // Добавляем отсортированные элементы обратно
+    demonItems.forEach(item => {
+        demonsContainer.appendChild(item);
+    });
+}
 
 // Модальное окно с инструкцией
 const instructionsBtn = document.getElementById('instructions-btn');
